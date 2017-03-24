@@ -37,6 +37,7 @@ public class ShowGradeTask extends AsyncTask<Void,String,String>{
         Log.v("TAG","Deb 33 : "+Deb);
 
         publishProgress(Deb);
+        GradeParsing gp=new GradeParsing(Deb);
 
         return Deb;
     }

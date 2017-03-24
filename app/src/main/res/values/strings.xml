@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Login</string>
+    <string name="app_name">경북대학교 학점 계산기</string>
 
     <!-- Strings related to login -->
     <string name="prompt_loginId">아이디</string>

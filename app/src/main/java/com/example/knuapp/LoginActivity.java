@@ -31,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.client.HttpClient;
 
@@ -181,7 +182,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String id = mIdView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String number = "2222222222";
 
         boolean cancel = false;
         View focusView = null;
@@ -217,6 +217,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = new UserLoginTask();
 
             mAuthTask.execute(id,password);
+
+
 
         }
     }
@@ -339,7 +341,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
             String LoginURL="/comm/comm/support/login/login.action?user.usr_id="+params[0]
-                    +"&user.passwd="+params[1]+"&user.user_div=&user.stu_persnl_nbr=2012105105";
+                    +"&user.passwd="+params[1]+"&user.user_div=&user.stu_persnl_nbr=2012105000";
 
 
 
@@ -353,6 +355,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
                 //HttpGet get = new HttpGet(getURL);
                 Deb=SessionControl.getUrlContet(LoginURL);
+                LoginFunction lFunction = new LoginFunction(Deb);
+                lFunction.testing();
+
+                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
                 //  HttpResponse httpResponse = httpClient.execute(get);
                 //HttpResponse httpResponse = httpClient.execute(httpPost);

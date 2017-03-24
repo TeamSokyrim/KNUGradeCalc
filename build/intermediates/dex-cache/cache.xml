@@ -3,21 +3,21 @@
 
     <item
         is-multidex="true"
-        jar="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="dbd9d34d1f926e173a6c8b3f5e5c2dd6e10d98d8">
-        <dex dex="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_2ea76c8c6011991167052787f0f6c4294049a661\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
         sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
         <dex dex="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_ba85cca1f2b875cea1201dee85b27c833e0b5d06\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="68ad45ece3972f147edc6bab2dc06969fa45ee93">
+        <dex dex="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_2ea76c8c6011991167052787f0f6c4294049a661\classes.dex" />
     </item>
 
 </items>

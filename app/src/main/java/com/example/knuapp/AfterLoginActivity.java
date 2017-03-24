@@ -16,11 +16,13 @@ public class AfterLoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_afterlogin);
+        setContentView(R.layout.activity_afterlogin);
     }
 
-    public void onBackButtonClicked(View v) {
-        Toast.makeText(getApplicationContext(), "돌아가기 버튼 클릭", Toast.LENGTH_LONG).show();
-        finish();
-    }
+
+//
+//    public void onBackButtonClicked(View v) {
+//        Toast.makeText(getApplicationContext(), "돌아가기 버튼 클릭", Toast.LENGTH_LONG).show();
+//        finish();
+//    }
 }

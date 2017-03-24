@@ -3,6 +3,7 @@ package com.example.knuapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -76,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private boolean loginSuccess = false;
+    private String myHttp;
     TextView txtResult;
     String result;
 
@@ -107,11 +110,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mIdSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 attemptLogin();
-
-
-
             }
         });
 
@@ -343,22 +342,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             String LoginURL="/comm/comm/support/login/login.action?user.usr_id="+params[0]
                     +"&user.passwd="+params[1]+"&user.user_div=&user.stu_persnl_nbr=2012105000";
 
-
-
-
             try {
-
-
-
-
-
-
                 //HttpGet get = new HttpGet(getURL);
-                Deb=SessionControl.getUrlContet(LoginURL);
-                LoginFunction lFunction = new LoginFunction(Deb);
-                lFunction.testing();
+                myHttp=SessionControl.getUrlContet(LoginURL);
 
-                Toast.makeText(LoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                publishProgress(myHttp);
 
                 //  HttpResponse httpResponse = httpClient.execute(get);
                 //HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -401,7 +389,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Log.v("TAG", stringBuilder.toString());/////<==  이곳에서   서버에서  보내온 메시지를 확인해 볼 수 있다..
 
                 //////         성공/실패 여부에 따라 적절히  대응하자.
-                return Deb;
+                return myHttp;
 
 
             } catch (Exception uee) {
@@ -420,7 +408,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         protected void onProgressUpdate(String... params)
         {
-            txtResult.setText(params[0]);
+            LoginFunction lFunction = new LoginFunction(params[0]);
+            boolean CheckLogin = lFunction.testing();
+
+            if(CheckLogin) {
+                Log.v("PasTag_Toast", "Success");
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                loginSuccess = true;
+                Intent afterLoginIntent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+                startActivity(afterLoginIntent);
+            }
+
+            else {
+                Log.v("PasTag_Toast", "Fail");
+                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                showProgress(false);
+            }
 
         }
         @Override
@@ -437,6 +440,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    public String getMyHttp() {
+        return myHttp;
+    }
 }
 
 

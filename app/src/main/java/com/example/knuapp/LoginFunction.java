@@ -1,7 +1,6 @@
 package com.example.knuapp;
 
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Created by GW on 2017-03-24.
@@ -17,10 +16,17 @@ public class LoginFunction {
 
     boolean testing() {
         Log.v("PasTag", "Testing" + deb);
-        String identCode = deb.substring(2,5);
+        String identCode = deb.substring(104,108);
         Log.v("PasTag", "Testing22" + identCode);
 
-        return false;
+        if(identCode.equals("Lang")) {
+            Log.v("PasTag_Testing Result","Success");
+            return true;
+        }
+        else {
+            Log.v("PasTag_Testing Result","Fail");
+            return false;
+        }
     }
 
 

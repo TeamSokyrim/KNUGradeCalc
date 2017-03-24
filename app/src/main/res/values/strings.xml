@@ -11,7 +11,7 @@
     <string name="error_invalid_id">아이디가 잘못되었습니다.</string>
     <string name="error_invalid_password">비밀번호가 너무 짧습니다.</string>
     <string name="error_incorrect_password">비밀번호가 잘못되었습니다.</string>
-    <string name="error_field_required">이 영역이 필요합니다.</string>
+    <string name="error_field_required">여기를 채워주세요.</string>
     <string name="permission_rationale">"퍼미션이 필요합니다."
 
     </string>

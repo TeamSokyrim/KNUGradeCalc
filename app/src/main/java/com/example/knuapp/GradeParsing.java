@@ -9,6 +9,6 @@ public class GradeParsing {
 
     GradeParsing(String raw)
     {
-
+        http=raw;
     }
 }

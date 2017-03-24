@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c82741bc129dd5f99f11a4ab8666ae24262053b6">
+        <dex dex="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_ba85cca1f2b875cea1201dee85b27c833e0b5d06\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="f33bc774167f1543556b458893059cbbf29443e4">
+        <dex dex="H:\AndroidStudioProjects\TeamSokyrim\KNUGradeCalc\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_2ea76c8c6011991167052787f0f6c4294049a661\classes.dex" />
+    </item>
+
+</items>

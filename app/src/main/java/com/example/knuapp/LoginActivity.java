@@ -3,6 +3,7 @@ package com.example.knuapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -31,6 +32,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.client.HttpClient;
 
@@ -41,7 +43,7 @@ import java.util.List;
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
- * A login screen that offers login via email/password.
+ * A login screen that offers login via ID/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
@@ -75,6 +77,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private boolean loginSuccess = false;
+    private String myHttp;
     TextView txtResult;
     String result;
 
@@ -88,7 +92,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mIdView = (AutoCompleteTextView) findViewById(R.id.loginId);
         populateAutoComplete();
 
-        int d;
         mPasswordView = (EditText) findViewById(R.id.loginPw);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -103,15 +106,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Log.v("TAG onCreate",Deb);
-        Button mEmailSignInButton = (Button) findViewById(R.id.action_login_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
+        Button mIdSignInButton = (Button) findViewById(R.id.action_login_button);
+        mIdSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 attemptLogin();
-
-
-
             }
         });
 
@@ -167,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     /**
      * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
+     * If there are form errors (invalid ID, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     private void attemptLogin() {
@@ -180,9 +179,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String email = mIdView.getText().toString();
+        String id = mIdView.getText().toString();
         String password = mPasswordView.getText().toString();
-        String number = "2222222222";
 
         boolean cancel = false;
         View focusView = null;
@@ -194,12 +192,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             cancel = true;
         }
 
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        // Check for a valid ID address.
+        if (TextUtils.isEmpty(id)) {
             mIdView.setError(getString(R.string.error_field_required));
             focusView = mIdView;
             cancel = true;
-        } else if (!isEmailValid(email)) {
+        } else if (!isIdValid(id)) {
             mIdView.setError(getString(R.string.error_invalid_id));
             focusView = mIdView;
             cancel = true;
@@ -217,16 +215,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             mAuthTask = new UserLoginTask();
 
-            mAuthTask.execute(email,password);
+            mAuthTask.execute(id,password);
+
+
 
         }
     }
 
 
 
-    private boolean isEmailValid(String email) {
+    private boolean isIdValid(String id) {
         //TODO: Replace this with your own logic
-        return email.length()>3;
+        return id.length()>3;
     }
 
     private boolean isPasswordValid(String password) {
@@ -277,26 +277,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
                         ContactsContract.Contacts.Data.CONTENT_DIRECTORY), ProfileQuery.PROJECTION,
 
-                // Select only email addresses.
+                // Select only Email Address.
                 ContactsContract.Contacts.Data.MIMETYPE +
                         " = ?", new String[]{ContactsContract.CommonDataKinds.Email
                 .CONTENT_ITEM_TYPE},
 
-                // Show primary email addresses first. Note that there won't be
-                // a primary email address if the user hasn't specified one.
+                // Show primary Email Addresses first. Note that there won't be
+                // a primary id address if the user hasn't specified one.
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
-        List<String> emails = new ArrayList<>();
+        List<String> ids = new ArrayList<>();
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            emails.add(cursor.getString(ProfileQuery.ADDRESS));
+            ids.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
 
-        addEmailsToAutoComplete(emails);
+        addIdsToAutoComplete(ids);
     }
 
     @Override
@@ -304,11 +304,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
+    private void addIdsToAutoComplete(List<String> idCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
+                        android.R.layout.simple_dropdown_item_1line, idCollection);
 
         mIdView.setAdapter(adapter);
     }
@@ -340,20 +340,13 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
 
             String LoginURL="/comm/comm/support/login/login.action?user.usr_id="+params[0]
-                    +"&user.passwd="+params[1]+"&user.user_div=&user.stu_persnl_nbr=2012105105";
-
-
-
+                    +"&user.passwd="+params[1]+"&user.user_div=&user.stu_persnl_nbr=2012105000";
 
             try {
-
-
-
-
-
-
                 //HttpGet get = new HttpGet(getURL);
-                Deb=SessionControl.getUrlContet(LoginURL);
+                myHttp=SessionControl.getUrlContet(LoginURL);
+
+                publishProgress(myHttp);
 
                 //  HttpResponse httpResponse = httpClient.execute(get);
                 //HttpResponse httpResponse = httpClient.execute(httpPost);
@@ -396,7 +389,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 // Log.v("TAG", stringBuilder.toString());/////<==  이곳에서   서버에서  보내온 메시지를 확인해 볼 수 있다..
 
                 //////         성공/실패 여부에 따라 적절히  대응하자.
-                return Deb;
+                return myHttp;
 
 
             } catch (Exception uee) {
@@ -415,7 +408,22 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         protected void onProgressUpdate(String... params)
         {
-            txtResult.setText(params[0]);
+            LoginFunction lFunction = new LoginFunction(params[0]);
+            boolean CheckLogin = lFunction.testing();
+
+            if(CheckLogin) {
+                Log.v("PasTag_Toast", "Success");
+                Toast.makeText(getApplicationContext(), "로그인 성공", Toast.LENGTH_SHORT).show();
+                loginSuccess = true;
+                Intent afterLoginIntent = new Intent(getApplicationContext(), AfterLoginActivity.class);
+                startActivity(afterLoginIntent);
+            }
+
+            else {
+                Log.v("PasTag_Toast", "Fail");
+                Toast.makeText(getApplicationContext(), "로그인 실패", Toast.LENGTH_SHORT).show();
+                showProgress(false);
+            }
 
         }
         @Override
@@ -432,6 +440,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     }
 
+    public String getMyHttp() {
+        return myHttp;
+    }
 }
 
 
